@@ -8,7 +8,8 @@ This resource is free from NMS and reflection.
 Rotem Avitan - RDev_
 
 # Tools
-https://mrgarretto.com/armorstand/ - used to design the mobs
+https://mrgarretto.com/armorstand/ - used to design the mobs.
+
 https://haselkern.com/Minecraft-ArmorStand/ - used to rotate and fix positions
 
 # Other resources from RDev_
