@@ -10,6 +10,8 @@ public final class EntityUtil {
     public static ArmorStand spawnCustomArmorStand(Location location, boolean small, String customname) {
         ArmorStand armorStand = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
         armorStand.setVisible(false);
+        armorStand.setCollidable(false);
+        armorStand.setBasePlate(false);
         armorStand.setGravity(false);
         armorStand.setSmall(small);
         armorStand.setInvulnerable(true);

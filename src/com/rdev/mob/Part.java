@@ -42,8 +42,8 @@ public class Part {
     }
 
     public boolean spawnPart(Location spawnLocation) {
-        if(armorstand != null) return true;
-        this.armorstand = EntityUtil.spawnCustomArmorStand(spawnLocation, small);
+        if(armorstand != null) return false;
+        this.armorstand = EntityUtil.spawnCustomArmorStand(spawnLocation.clone(), small);
 
         switch(partType) {
             case HEAD:
@@ -60,6 +60,6 @@ public class Part {
                 break;
         }
 
-        return false;
+        return true;
     }
 }

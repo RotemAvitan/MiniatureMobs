@@ -34,6 +34,11 @@ public class MainCommand implements CommandExecutor {
                 //Commands.spawnDuck(p.getLocation().add(0,1,0));
                 break;
 
+            case "test2":
+                Commands.checkList();
+                //Commands.spawnDuck(p.getLocation().add(0,1,0));
+                break;
+
             default:
                 p.sendMessage(Constants.Command.MAIN_COMMAND_USAGE);
                 break;
