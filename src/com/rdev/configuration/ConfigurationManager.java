@@ -20,7 +20,7 @@ public class ConfigurationManager {
     @Getter private final List<MiniatureMobConfiguration> configurationMobs = new ArrayList<>();
 
     private FileConfiguration getConfigFile() {
-        File file = new File(MiniatureMobs.getInstance().getDataFolder(), "Mobs.yml");
+        File file = new File(MiniatureMobs.getInstance().getDataFolder(), "mobs.yml");
         return YamlConfiguration.loadConfiguration(file);
     }
 
