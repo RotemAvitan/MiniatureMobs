@@ -1,0 +1,17 @@
+Test:
+  MobType: ZOMBIE
+  Health: 20
+  Display: 'Test'
+  Damage: 4
+  BodyParts:
+    Head:
+      PartType: HEAD
+      Material: PUMPKIN
+      Offset:
+        x: 0
+        y: 0
+        z: 0
+      PartPose:
+        x: 0
+        y: 0
+        z: 0

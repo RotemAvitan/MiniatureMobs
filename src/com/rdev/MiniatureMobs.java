@@ -1,6 +1,7 @@
 package com.rdev;
 
 import com.rdev.commands.MainCommand;
+import com.rdev.configuration.ConfigurationManager;
 import com.rdev.listeners.MachineListeners;
 import com.rdev.mob.MobsManager;
 import lombok.Getter;
@@ -11,12 +12,17 @@ public class MiniatureMobs extends JavaPlugin {
 
     @Getter private static MiniatureMobs instance;
     @Getter public MobsManager mobsManager;
+    @Getter public ConfigurationManager configurationManager;
 
     @Override
     public void onEnable() {
         instance = this;
 
+        registerEvents();
         this.loadMobsManager();
+        this.loadConfigurationManager();
+
+        //TODO Load mobs from config
 
         getCommand("miniaturemobs").setExecutor(new MainCommand());
     }
@@ -28,6 +34,10 @@ public class MiniatureMobs extends JavaPlugin {
 
     private void loadMobsManager() {
         this.mobsManager = new MobsManager();
+    }
+
+    private void loadConfigurationManager() {
+        this.configurationManager = new ConfigurationManager();
     }
 
     private void registerEvents() {

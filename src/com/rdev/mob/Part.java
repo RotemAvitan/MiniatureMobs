@@ -13,13 +13,15 @@ import org.bukkit.util.EulerAngle;
 public class Part {
 
     @Getter private ArmorStand armorstand;
-    @Getter private PartType partType;
+    @Getter @Setter private PartType partType;
     @Getter @Setter private Material material;
     @Getter @Setter private boolean small;
     @Getter @Setter private boolean spawned;
     @Getter @Setter private EulerAngle headPose;
     @Getter @Setter private EulerAngle rightHandPose;
     @Getter @Setter private EulerAngle leftHandPose;
+
+    public Part() { }
 
     public Part(PartType partType, Material material, boolean small) {
         this(partType, material, small, null, null, null);

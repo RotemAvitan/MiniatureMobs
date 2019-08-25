@@ -24,10 +24,12 @@ public class MobsManager {
     }
 
     public void removeAll() {
-        mobs.forEach(mobMachine -> {
-            if(mobMachine.isSpawned())
-                mobMachine.getBaseMob().getEntity().remove();
-            mobs.remove(mobMachine);
+        //Created in order to avoid ConcurrentModificationException.
+        List<MobMachine> cloneList = new ArrayList<>();
+        cloneList.addAll(mobs);
+
+        cloneList.forEach(mobMachine -> {
+            remove(mobMachine);
         });
     }
 
@@ -35,6 +37,8 @@ public class MobsManager {
         if(!(mobMachine.getBaseMob().getEntity() == null || mobMachine.getBaseMob().getEntity().isDead()))
             mobMachine.getBaseMob().getEntity().remove();
 
+        if(mobMachine.getParts().keySet() != null )mobMachine.getParts().keySet().forEach(part -> {part.getArmorstand().remove();});
+        if(mobMachine.getNametag() != null)mobMachine.getNametag().remove();
         mobs.remove(mobMachine);
     }
 
