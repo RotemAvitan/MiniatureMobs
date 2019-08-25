@@ -1,6 +1,7 @@
 package com.rdev.commands;
 
 import com.rdev.MiniatureMobs;
+import com.rdev.configuration.MiniatureMobConfiguration;
 import com.rdev.entityai.ZombieMobBaseEntity;
 import com.rdev.mob.MobMachine;
 import com.rdev.mob.MobsManager;
@@ -9,14 +10,28 @@ import com.rdev.mob.PartType;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 final class Commands {
 
+    static void spawnMob(String nameID, CommandSender commandSender) {
+        MiniatureMobConfiguration mobConfiguration = MiniatureMobs.getInstance().getConfigurationManager().getMobConfigurationByID(nameID);
+
+        if(mobConfiguration == null) {
+            //TODO sendMessage to cs
+            return;
+        }
+
+        MiniatureMobs.getInstance().getMobsManager().buildMiniatureMob(mobConfiguration);
+        //TODO send message to cs
+    }
+
     static void testCommand(Location location) {
 
-        MobMachine mobMachine = MiniatureMobs.getInstance().getMobsManager().buildMiniatureMobs("Test", new ZombieMobBaseEntity());
+        MobMachine mobMachine = MiniatureMobs.getInstance().getMobsManager().buildMiniatureMob("Test", new ZombieMobBaseEntity());
 
        /* mobMachine.addPart(new Part(PartType.HEAD, Material.PUMPKIN, false), new Vector(0.0, -0.10883, 0.0));
         mobMachine.addPart(new Part(PartType.HEAD, Material.SNOW_BLOCK, false), new Vector(0.0, -1.35883, 0.0));

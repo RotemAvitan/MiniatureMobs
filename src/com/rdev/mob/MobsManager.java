@@ -1,5 +1,8 @@
 package com.rdev.mob;
 
+import com.rdev.MiniatureMobs;
+import com.rdev.configuration.ConfigurationManager;
+import com.rdev.configuration.MiniatureMobConfiguration;
 import com.rdev.entityai.MobsBase;
 import com.rdev.entityai.ZombieMobBaseEntity;
 import lombok.Getter;
@@ -12,13 +15,24 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MobsManager {
 
     @Getter private final List<MobMachine> mobs = new ArrayList<>();
 
-    public MobMachine buildMiniatureMobs(String name, MobsBase baseMob) {
+    public MobMachine buildMiniatureMob(String name, MobsBase baseMob) {
         MobMachine mobMachine = new MobMachine(name, baseMob);
+        mobs.add(mobMachine);
+        return mobMachine;
+    }
+
+    public MobMachine buildMiniatureMob(MiniatureMobConfiguration mobConfiguration) {
+        MobsBase mobsBase = new ZombieMobBaseEntity();
+        MobMachine mobMachine = new MobMachine(mobConfiguration.getNameID(), mobsBase);
+        mobConfiguration.getParts().forEach(part ->
+                mobMachine.addPart(part, MiniatureMobs.getInstance().getConfigurationManager().getOffsetFromConfiguration(mobConfiguration.getNameID())));
+
         mobs.add(mobMachine);
         return mobMachine;
     }
@@ -28,9 +42,7 @@ public class MobsManager {
         List<MobMachine> cloneList = new ArrayList<>();
         cloneList.addAll(mobs);
 
-        cloneList.forEach(mobMachine -> {
-            remove(mobMachine);
-        });
+        cloneList.forEach(mobMachine -> remove(mobMachine));
     }
 
     public void remove(MobMachine mobMachine) {
@@ -43,8 +55,6 @@ public class MobsManager {
     }
 
     public MobMachine getMachineByEntity(LivingEntity matchMob) {
-        for(MobMachine mb : mobs)
-            if(mb.getBaseMob().getEntity().equals(matchMob)) return mb;
-        return null;
+        return mobs.stream().filter(mb -> mb.getBaseMob().getEntity().equals(matchMob)).findAny().orElse(null);
     }
 }

@@ -1,5 +1,4 @@
 Test:
-  MobType: ZOMBIE
   Health: 20
   Display: 'Test'
   Damage: 4

@@ -5,10 +5,12 @@ import com.rdev.mob.Part;
 import com.rdev.mob.PartType;
 import lombok.Getter;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.util.EulerAngle;
+import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,14 +26,23 @@ public class ConfigurationManager {
         return YamlConfiguration.loadConfiguration(file);
     }
 
-    public void loadMobsFromConfigurationFile() {
+    public MiniatureMobConfiguration getMobConfigurationByID(String nameID) {
+        return configurationMobs.stream().filter(mb -> mb.getNameID().equals(nameID)).findAny().orElse(null);
+    }
 
+    public void registerConfigMobs() {
         getConfigFile().getConfigurationSection("").getKeys(false).forEach( key -> {
             MiniatureMobConfiguration mobConfiguration = createMobConfiguration(key);
             configurationMobs.add(mobConfiguration);
         });
-
     }
+
+    public Vector getOffsetFromConfiguration(String nameID) {
+        final String DIR_OFFSET = nameID + ".BodyParts.Offset";
+        ConfigurationSection cs = getConfigFile().getConfigurationSection(DIR_OFFSET);
+
+        return cs == null ? new Vector(0,0,0) : new Vector(cs.getDouble("x"), cs.getDouble("y"), cs.getDouble("z"));
+}
 
     public MiniatureMobConfiguration createMobConfiguration(String configurationDir) {
         FileConfiguration file = getConfigFile();
@@ -43,9 +54,6 @@ public class ConfigurationManager {
         MiniatureMobConfiguration mobConfiguration = new MiniatureMobConfiguration(configurationDir);
 
         final String DIR = configurationDir +  ".";
-
-        EntityType entityType = EntityType.valueOf(file.getString(DIR + "MobType"));
-        mobConfiguration.setMobType(entityType == null ? entityType : EntityType.ZOMBIE);
 
         mobConfiguration.setHealth(file.getInt(DIR + "Health"));
         mobConfiguration.setDisplayName(file.getString(DIR + "Display"));

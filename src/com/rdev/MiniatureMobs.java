@@ -22,7 +22,7 @@ public class MiniatureMobs extends JavaPlugin {
         this.loadMobsManager();
         this.loadConfigurationManager();
 
-        //TODO Load mobs from config
+        configurationManager.registerConfigMobs();
 
         getCommand("miniaturemobs").setExecutor(new MainCommand());
     }
