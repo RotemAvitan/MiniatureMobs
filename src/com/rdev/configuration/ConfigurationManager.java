@@ -17,19 +17,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The configuration manager, manage all the loading system of the mobs from the config.
+ * Contains methods of getConfig, registerConfigMobs and createMobConfiguration.
+ */
 public class ConfigurationManager {
 
     @Getter private final List<MiniatureMobConfiguration> configurationMobs = new ArrayList<>();
 
+    /**
+     * Get the configuration file of the miniature mobs.
+     *
+     * @return The configuration file.
+     */
     private FileConfiguration getConfigFile() {
         File file = new File(MiniatureMobs.getInstance().getDataFolder(), "mobs.yml");
         return YamlConfiguration.loadConfiguration(file);
     }
 
+    /**
+     * Get the mob configuration by the name ID.
+     *
+     * @param nameID The name ID of the mob, from the configuration section.
+     * @return The miniature mob configuration object.
+     */
     public MiniatureMobConfiguration getMobConfigurationByID(String nameID) {
         return configurationMobs.stream().filter(mb -> mb.getNameID().equals(nameID)).findAny().orElse(null);
     }
 
+    /**
+     * Register all the mobs from the configuration file.
+     */
     public void registerConfigMobs() {
         ConfigurationSection cs = getConfigFile().getConfigurationSection("");
         if (cs == null) {
@@ -39,23 +57,35 @@ public class ConfigurationManager {
         cs.getKeys(false).forEach(key -> configurationMobs.add(createMobConfiguration(key)));
     }
 
+    /**
+     * Get the offset data from the configuration file.
+     *
+     * @param nameID The name ID of the mob, from the configuration section.
+     * @return Vector that presents x, y and z of the {@link Part} offset.
+     */
     public Vector getOffsetFromConfiguration(String nameID) {
         String dirOffset = nameID + ".BodyParts.Offset";
         ConfigurationSection cs = getConfigFile().getConfigurationSection(dirOffset);
 
-        return cs == null ? new Vector(0,0,0) : new Vector(cs.getDouble("x"), cs.getDouble("y"), cs.getDouble("z"));
-}
+        return cs == null ? new Vector(0, 0, 0) : new Vector(cs.getDouble("x"), cs.getDouble("y"), cs.getDouble("z"));
+    }
 
-    private MiniatureMobConfiguration createMobConfiguration(String configurationDir) {
+    /**
+     * Creating mob configuration object that used to summon a custom miniature mob.
+     *
+     * @param nameID The string ID of the miniature mob from the configuration file.
+     * @return The configuration object.
+     */
+    private MiniatureMobConfiguration createMobConfiguration(String nameID) {
         FileConfiguration file = getConfigFile();
 
-        if (!file.contains(configurationDir)) {
+        if (!file.contains(nameID)) {
             return null;
         }
 
-        MiniatureMobConfiguration mobConfiguration = new MiniatureMobConfiguration(configurationDir);
+        MiniatureMobConfiguration mobConfiguration = new MiniatureMobConfiguration(nameID);
 
-        String dir = configurationDir +  ".";
+        String dir = nameID +  ".";
 
         mobConfiguration.setHealth(file.getInt(dir + "Health"));
         mobConfiguration.setDisplayName(file.getString(dir + "Display"));

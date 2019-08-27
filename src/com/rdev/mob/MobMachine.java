@@ -15,6 +15,11 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A mob machine. Holding information about the mob machine such as name, parts, hasSpawned and etc.
+ * You can add parts to the mob machine here as well.
+ * @see Part
+ */
 public class MobMachine {
 
     @Getter private String name;
@@ -22,16 +27,30 @@ public class MobMachine {
     @Getter private ArmorStand nametag;
     @Getter private boolean spawned;
     @Getter @Setter private Map<Part, Vector> parts = new HashMap<>();
+    private final double mobHeight = -1.3;
 
     public MobMachine(String name, MobsBase baseMob) {
         this.name = name;
         this.baseMob = baseMob;
     }
 
+    /**
+     * Adding part to the mob machine using offset.
+     *
+     * @param part The part that will be added.
+     * @param offset The location of the part relevant to the Zombie base.
+     */
     public void addPart(Part part, Vector offset) {
-        this.parts.put(part, offset.add(new Vector(0,-1.3,0)));
+        this.parts.put(part, offset.add(new Vector(0, mobHeight,0)));
     }
 
+    /**
+     * Spawning the mob machine with all the parts.
+     * Calculate parts spinning via entity's yaw.
+     *
+     * @param spawnLocation The spawn location of the mob machine.
+     * @return The entity of the mob machine.
+     */
     public LivingEntity spawn(Location spawnLocation) {
         LivingEntity mob = (LivingEntity) getBaseMob().spawnEntity(spawnLocation);
 

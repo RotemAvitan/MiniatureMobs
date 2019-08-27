@@ -6,8 +6,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+/**
+ * The main command, handling subcommands and arguments.
+ */
 public class MainCommand implements CommandExecutor {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 

@@ -10,23 +10,38 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
+/**
+ * A class holding static functions in order to implement the commands from {@link MainCommand}.
+ */
 final class Commands {
 
-    static void spawnMob(String nameID, CommandSender commandSender) {
+    /**
+     * Command to spawn a mob from the configuration file settings.
+     * This command using the nameID of the mob.
+     *
+     * @param nameID The name ID of the miniature mob.
+     * @param spawnLocation The spawn location of the mob.
+     * @param commandSender The command sender of this command.
+     */
+    static void spawnMob(String nameID, Location spawnLocation, CommandSender commandSender) {
         MiniatureMobConfiguration mobConfiguration = MiniatureMobs.getInstance().getConfigurationManager().getMobConfigurationByID(nameID);
 
         if (mobConfiguration == null) {
             //TODO sendMessage to cs
             return;
         }
-
-        MiniatureMobs.getInstance().getMobsManager().buildMiniatureMob(mobConfiguration);
+        Player p = (Player) commandSender;
+        MobMachine mobMachine = MiniatureMobs.getInstance().getMobsManager().buildMiniatureMob(mobConfiguration);
+        mobMachine.spawn(p.getLocation());
+        p.sendMessage("Mob spawned!");
         //TODO send message to cs
     }
 
+    //just a dev test command
     static void testCommand(Location location) {
 
         MobMachine mobMachine = MiniatureMobs.getInstance().getMobsManager().buildMiniatureMob("Test", new ZombieMobBaseEntity());
@@ -59,6 +74,7 @@ final class Commands {
         mobMachine.spawn(location);
     }
 
+    //memory leak testing
     static void checkList() {
         Bukkit.broadcastMessage(MiniatureMobs.getInstance().getMobsManager().getMobs().toString());
     }

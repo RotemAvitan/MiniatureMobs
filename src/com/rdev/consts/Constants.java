@@ -2,6 +2,9 @@ package com.rdev.consts;
 
 import org.bukkit.ChatColor;
 
+/**
+ * A class holding all the String constants for ease of use, simple classification and modularity.
+ */
 public final class Constants {
 
     private static final String WARN = ChatColor.RED + "";
@@ -15,7 +18,7 @@ public final class Constants {
         public static final String COMMAND_SHORTCUT = "MiniatureMobs";
     }
 
-    // /mm spawnmob <mobname> <amount>
+    /* /mm spawnmob <mobname> <amount> */
 
     public static class Command {
         public static final String NOT_PLAYER_ERROR = WARN + "You must be a player to use this command.";
@@ -32,6 +35,7 @@ public final class Constants {
         public static final String SPAWN_MOB_SUCCESS = SUCCESS + "%mob% sucessfully spawned!";
     }
 
-
-
+    // Preventing class from being initialized.
+    private Constants() {
+    }
 }

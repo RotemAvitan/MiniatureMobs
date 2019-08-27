@@ -4,6 +4,9 @@ import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 
+/**
+ * Class holding utilities methods about entities.
+ */
 public final class EntityUtil {
 
     public static ArmorStand spawnCustomArmorStand(Location location, boolean small, String customName) {

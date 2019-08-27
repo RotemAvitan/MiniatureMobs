@@ -10,16 +10,32 @@ import org.bukkit.entity.LivingEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The mobs manager, manage all the miniature mobs, create and remove {@link MiniatureMobs}.
+ */
 public class MobsManager {
 
     @Getter private final List<MobMachine> mobs = new ArrayList<>();
 
+    /**
+     * Creating a miniature mob.
+     *
+     * @param name the name of the mob that will be displayed on the name tag.
+     * @param baseMob the base of the mob, entity.
+     * @return The Mob Machine.
+     */
     public MobMachine buildMiniatureMob(String name, MobsBase baseMob) {
         MobMachine mobMachine = new MobMachine(name, baseMob);
         mobs.add(mobMachine);
         return mobMachine;
     }
 
+    /**
+     * Creating a miniature mob.
+     *
+     * @param mobConfiguration The mob configuration from the file.
+     * @return The Mob Machine.
+     */
     public MobMachine buildMiniatureMob(MiniatureMobConfiguration mobConfiguration) {
         MobsBase mobsBase = new ZombieMobBaseEntity();
         MobMachine mobMachine = new MobMachine(mobConfiguration.getNameID(), mobsBase);
@@ -30,12 +46,19 @@ public class MobsManager {
         return mobMachine;
     }
 
+    /**
+     * Removing all the miniature mobs from the world.
+     */
     public void removeAll() {
         //Created in order to avoid ConcurrentModificationException.
         List<MobMachine> cloneList = new ArrayList<>(mobs);
         cloneList.forEach(this::remove);
     }
 
+    /**
+     * Removing a specific miniature mob.
+     * @param mobMachine The miniature mob.
+     */
     public void remove(MobMachine mobMachine) {
         if (!(mobMachine.getBaseMob().getEntity() == null || mobMachine.getBaseMob().getEntity().isDead()))
             mobMachine.getBaseMob().getEntity().remove();
@@ -45,7 +68,14 @@ public class MobsManager {
         mobs.remove(mobMachine);
     }
 
+    /**
+     * Get {@link MobMachine} by {@link LivingEntity}.
+     *
+     * @param matchMob
+     * @return
+     */
     public MobMachine getMachineByEntity(LivingEntity matchMob) {
         return mobs.stream().filter(mb -> mb.getBaseMob().getEntity().equals(matchMob)).findAny().orElse(null);
     }
+
 }

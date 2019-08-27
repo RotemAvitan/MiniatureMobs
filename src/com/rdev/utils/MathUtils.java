@@ -1,8 +1,10 @@
 package com.rdev.utils;
 
-import org.bukkit.Location;
 import org.bukkit.util.Vector;
 
+/**
+ * Class holding utilities methods and fields of math.
+ */
 public final class MathUtils {
 
     public static Vector rotateAroundAxisX(Vector v, double angle) {
