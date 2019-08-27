@@ -1,7 +1,6 @@
 package com.rdev.entityai;
 
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;
@@ -16,10 +15,10 @@ public abstract class MobsBase {
     public Entity spawnEntity(Location location) {
         Entity mob = location.getWorld().spawnEntity(location, getEntityType());
 
-        if(mob instanceof LivingEntity) ((LivingEntity)mob).addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1));
+        if (mob instanceof LivingEntity) ((LivingEntity)mob).addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1));
 
         mob.setSilent(true);
-        if(mob instanceof Ageable){
+        if (mob instanceof Ageable){
             ((Ageable)mob).setAdult();
         }
         this.entity = mob;

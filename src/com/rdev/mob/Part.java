@@ -3,7 +3,6 @@ package com.rdev.mob;
 import com.rdev.utils.EntityUtil;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -44,21 +43,21 @@ public class Part {
     }
 
     public boolean spawnPart(Location spawnLocation) {
-        if(armorstand != null) return false;
+        if (armorstand != null) return false;
         this.armorstand = EntityUtil.spawnCustomArmorStand(spawnLocation.clone(), small);
 
         switch(partType) {
             case HEAD:
                 armorstand.setHelmet(new ItemStack(material));
-                if(headPose != null) armorstand.setHeadPose(headPose);
+                if (headPose != null) armorstand.setHeadPose(headPose);
                 break;
             case LEFT_HAND:
                 armorstand.getEquipment().setItemInOffHand(new ItemStack(material));
-                if(leftHandPose != null) armorstand.setLeftArmPose(leftHandPose);
+                if (leftHandPose != null) armorstand.setLeftArmPose(leftHandPose);
                 break;
             case RIGHT_HAND:
                 armorstand.getEquipment().setItemInMainHand(new ItemStack(material));
-                if(rightHandPose != null) armorstand.setRightArmPose(rightHandPose);
+                if (rightHandPose != null) armorstand.setRightArmPose(rightHandPose);
                 break;
         }
 

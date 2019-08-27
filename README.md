@@ -1,13 +1,14 @@
 # MiniatureMobs
-MiniatureMobs is a plugin that allow you to create custom mobs.
-You can make your own custom mobs using invisible armor stands, those mobs are able to attack players.  
+MiniatureMobs is a Spigot plugin that allows you to create custom mobs.
+You can make your own custom mobs using invisible armor stands, those mobs are able to attack players.
+  
 This resource is free from NMS and reflection.
 
 # Authors
 Rotem Avitan - RDev_
 
 # Tools
-https://mrgarretto.com/armorstand/ - used to design the mobs.  
+https://mrgarretto.com/armorstand/ - used to design the mobs  
 https://haselkern.com/Minecraft-ArmorStand/ - used to rotate and fix positions
 
 # Premium resources from RDev_

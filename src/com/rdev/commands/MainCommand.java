@@ -11,7 +11,7 @@ public class MainCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
-        if(!(commandSender instanceof Player)) {
+        if (!(commandSender instanceof Player)) {
             commandSender.sendMessage(Constants.Command.NOT_PLAYER_ERROR);
             return true;
         }
@@ -20,7 +20,7 @@ public class MainCommand implements CommandExecutor {
 
         String subCommand;
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             p.sendMessage(Constants.Command.MAIN_COMMAND_USAGE);
             return true;
         }

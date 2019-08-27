@@ -3,8 +3,8 @@ package com.rdev.configuration;
 import com.rdev.mob.Part;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.entity.EntityType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MiniatureMobConfiguration {
@@ -16,12 +16,13 @@ public class MiniatureMobConfiguration {
     @Getter @Setter private String displayName;
     @Getter @Setter private int damage;
 
-    public MiniatureMobConfiguration(String nameID) {
+    MiniatureMobConfiguration(String nameID) {
         this.nameID = nameID;
+        this.parts = new ArrayList<>();
     }
 
-    public void addPart(Part part) {
-        parts.add(part);
+    void addPart(Part part) {
+        this.parts.add(part);
     }
 
 }

@@ -11,7 +11,6 @@ public final class Constants {
     private static final String YELLOW = ChatColor.YELLOW + "" + ChatColor.BOLD;
 
     public static class General {
-        public static final String NUMERIC_REGEX = "[1-9]\\d*";
         public static final String PLUGIN_NAME = "MiniatureMobs";
         public static final String COMMAND_SHORTCUT = "MiniatureMobs";
     }

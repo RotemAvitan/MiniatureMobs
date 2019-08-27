@@ -2,7 +2,6 @@ package com.rdev.listeners;
 
 import com.rdev.MiniatureMobs;
 import com.rdev.mob.MobMachine;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,9 +11,9 @@ public class MachineListeners implements Listener {
 
     @EventHandler
     public void MachineDeath(EntityDeathEvent e) {
-        if(!(e.getEntity() instanceof LivingEntity)) return;
+        if (!(e.getEntity() instanceof LivingEntity)) return;
         MobMachine mobMachine = MiniatureMobs.getInstance().getMobsManager().getMachineByEntity(e.getEntity());
-        if(mobMachine == null) return;
+        if (mobMachine == null) return;
         MiniatureMobs.getInstance().getMobsManager().remove(mobMachine);
     }
 }

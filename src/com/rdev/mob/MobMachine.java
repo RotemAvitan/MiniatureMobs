@@ -43,7 +43,7 @@ public class MobMachine {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if( (!mob.isValid()) || mob.isDead() || mob == null) {
+                if ((!mob.isValid()) || mob.isDead() || mob == null) {
                     nametag.remove();
                     parts.keySet().forEach( p ->  p.getArmorstand().remove());
                     cancel();

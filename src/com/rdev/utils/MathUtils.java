@@ -5,7 +5,7 @@ import org.bukkit.util.Vector;
 
 public final class MathUtils {
 
-    public static final Vector rotateAroundAxisX(Vector v, double angle) {
+    public static Vector rotateAroundAxisX(Vector v, double angle) {
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
         double y = v.getY() * cos - v.getZ() * sin;
@@ -13,7 +13,7 @@ public final class MathUtils {
         return v.setY(y).setZ(z);
     }
 
-    public static final Vector rotateAroundAxisY(Vector v, double angle) {
+    public static Vector rotateAroundAxisY(Vector v, double angle) {
         double cos = Math.cos(angle);
         double sin = Math.sin(angle);
         double x = v.getX() * cos + v.getZ() * sin;
