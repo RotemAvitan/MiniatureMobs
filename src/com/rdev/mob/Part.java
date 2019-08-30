@@ -30,6 +30,21 @@ public class Part {
     public Part() { }
 
     /**
+     * Clone the other part into new object.
+     *
+     * @param part The part you wish to clone.
+     */
+    public Part(Part part) {
+        this.armorstand = part.getArmorstand();
+        this.partType = part.getPartType();
+        this.material = part.getMaterial();
+        this.small = part.isSmall();
+        this.headPose = part.getHeadPose();
+        this.rightHandPose = part.getRightHandPose();
+        this.leftHandPose = part.getLeftHandPose();
+    }
+
+    /**
      * Creating part with default pose.
      *
      * @param partType The part type, contains the item position.
@@ -92,7 +107,7 @@ public class Part {
      */
     public boolean spawnPart(Location spawnLocation) {
         if (armorstand != null) return false;
-        this.armorstand = EntityUtil.spawnCustomArmorStand(spawnLocation.clone(), small);
+        this.armorstand = EntityUtil.spawnCustomArmorStand(spawnLocation, small);
 
         switch(partType) {
             case HEAD:
@@ -111,4 +126,5 @@ public class Part {
 
         return true;
     }
+
 }

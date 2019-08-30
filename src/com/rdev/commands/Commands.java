@@ -2,6 +2,7 @@ package com.rdev.commands;
 
 import com.rdev.MiniatureMobs;
 import com.rdev.configuration.MiniatureMobConfiguration;
+import com.rdev.consts.Constants;
 import com.rdev.entityai.ZombieMobBaseEntity;
 import com.rdev.mob.MobMachine;
 import com.rdev.mob.Part;
@@ -22,23 +23,25 @@ final class Commands {
     /**
      * Command to spawn a mob from the configuration file settings.
      * This command using the nameID of the mob.
-     *
-     * @param nameID The name ID of the miniature mob.
+     *  @param nameID The name ID of the miniature mob.
      * @param spawnLocation The spawn location of the mob.
      * @param commandSender The command sender of this command.
+     * @return Boolean value if the mob has spawned
      */
-    static void spawnMob(String nameID, Location spawnLocation, CommandSender commandSender) {
+    static boolean spawnMob(String nameID, int amount, Location spawnLocation, CommandSender commandSender) {
         MiniatureMobConfiguration mobConfiguration = MiniatureMobs.getInstance().getConfigurationManager().getMobConfigurationByID(nameID);
 
         if (mobConfiguration == null) {
-            //TODO sendMessage to cs
-            return;
+            commandSender.sendMessage(Constants.Command.MOB_CONFIGUCATION_NOT_FOUND.replace("%mob%", nameID));
+            return false;
         }
+
         Player p = (Player) commandSender;
         MobMachine mobMachine = MiniatureMobs.getInstance().getMobsManager().buildMiniatureMob(mobConfiguration);
         mobMachine.spawn(p.getLocation());
-        p.sendMessage("Mob spawned!");
-        //TODO send message to cs
+        commandSender.sendMessage(Constants.Command.SPAWN_MOB_SUCCESS.replace("%mob%", nameID));
+
+        return true;
     }
 
     //just a dev test command

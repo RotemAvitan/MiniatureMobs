@@ -38,9 +38,9 @@ public class MobsManager {
      */
     public MobMachine buildMiniatureMob(MiniatureMobConfiguration mobConfiguration) {
         MobsBase mobsBase = new ZombieMobBaseEntity();
-        MobMachine mobMachine = new MobMachine(mobConfiguration.getNameID(), mobsBase);
+        MobMachine mobMachine = new MobMachine(mobConfiguration.getNameID() + "", mobsBase);
         mobConfiguration.getParts().forEach(part ->
-                mobMachine.addPart(part, MiniatureMobs.getInstance().getConfigurationManager().getOffsetFromConfiguration(mobConfiguration.getNameID())));
+                mobMachine.addPart(new Part(part), MiniatureMobs.getInstance().getConfigurationManager().getOffsetFromConfiguration(mobConfiguration.getNameID())));
 
         mobs.add(mobMachine);
         return mobMachine;
@@ -51,7 +51,8 @@ public class MobsManager {
      */
     public void removeAll() {
         //Created in order to avoid ConcurrentModificationException.
-        List<MobMachine> cloneList = new ArrayList<>(mobs);
+        List<MobMachine> cloneList = new ArrayList<>();
+        cloneList.addAll(mobs);
         cloneList.forEach(this::remove);
     }
 

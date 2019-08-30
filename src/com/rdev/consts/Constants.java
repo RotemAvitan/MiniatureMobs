@@ -18,8 +18,6 @@ public final class Constants {
         public static final String COMMAND_SHORTCUT = "MiniatureMobs";
     }
 
-    /* /mm spawnmob <mobname> <amount> */
-
     public static class Command {
         public static final String NOT_PLAYER_ERROR = WARN + "You must be a player to use this command.";
         public static final String MAIN_COMMAND_USAGE = String.format("%sUSAGE:%s /%s <cmd>\n"
@@ -32,6 +30,8 @@ public final class Constants {
                 General.PLUGIN_NAME,
                 ChatColor.BOLD, ChatColor.RESET);
 
+        public static final String NOT_A_NUMBER = SUCCESS + "Please enter a valid number!";
+        public static final String MOB_CONFIGUCATION_NOT_FOUND = WARN + "Mob configuration name " + YELLOW + "%mob% " + WARN +"could not be found.";
         public static final String SPAWN_MOB_SUCCESS = SUCCESS + "%mob% sucessfully spawned!";
     }
 

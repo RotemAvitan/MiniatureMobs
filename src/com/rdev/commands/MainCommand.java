@@ -31,15 +31,29 @@ public class MainCommand implements CommandExecutor {
             return true;
         }
 
+        /* /mm spawnmob <mobname> <amount> */
         subCommand = args[0];
 
         switch (subCommand) {
-            case "test":
+            case "spawnmob":
+                String nameID = args[1];
+
+                int amount = 0;
+
+                try {
+                    amount = Integer.parseInt(args[2]);
+                } catch (NumberFormatException e) {
+                    p.sendMessage(Constants.Command.NOT_A_NUMBER);
+                    return true;
+                }
+
+                Commands.spawnMob(nameID, amount, p.getLocation().add(0,1,0), commandSender);
+                break;
+            case "test3":
                 Commands.testCommand(p.getLocation().add(0,1,0));
                 commandSender.sendMessage(Constants.Command.SPAWN_MOB_SUCCESS.replace("%mob%", "TestMob"));
                 //Commands.spawnDuck(p.getLocation().add(0,1,0));
                 break;
-
             case "test2":
                 Commands.checkList();
                 //Commands.spawnDuck(p.getLocation().add(0,1,0));

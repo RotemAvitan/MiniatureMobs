@@ -6,6 +6,7 @@ import com.rdev.utils.EntityUtil;
 import com.rdev.utils.MathUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
@@ -27,7 +28,7 @@ public class MobMachine {
     @Getter private ArmorStand nametag;
     @Getter private boolean spawned;
     @Getter @Setter private Map<Part, Vector> parts = new HashMap<>();
-    private final double mobHeight = -1.3;
+    private final double mobHeight = -1.5;
 
     public MobMachine(String name, MobsBase baseMob) {
         this.name = name;
@@ -56,22 +57,20 @@ public class MobMachine {
 
         this.nametag = EntityUtil.spawnCustomArmorStand(mob.getEyeLocation().clone().add(0,-1.75,0), false, this.name);
 
-        parts.keySet().forEach(p -> p.spawnPart(mob.getLocation().clone().add(parts.get(p))) );
-
+        parts.keySet().forEach(p -> p.spawnPart(mob.getLocation().clone().add(parts.get(p))));
 
         new BukkitRunnable() {
             @Override
             public void run() {
                 if ((!mob.isValid()) || mob.isDead() || mob == null) {
-                    nametag.remove();
-                    parts.keySet().forEach( p ->  p.getArmorstand().remove());
+                    MiniatureMobs.getInstance().getMobsManager().remove(MobMachine.this);
                     cancel();
                 }
 
                 Location loc = mob.getEyeLocation().subtract(0.0D, 0.3D, 0.0D);
                 loc.setPitch(0.0F);
                 loc.setYaw(mob.getEyeLocation().getYaw());
-                Vector v1 = loc.getDirection().normalize().multiply(-0.3D);
+                Vector v1 = loc.getDirection().normalize().multiply(-0.09D);
                 v1.setY(0);
                 loc.add(v1);
 
