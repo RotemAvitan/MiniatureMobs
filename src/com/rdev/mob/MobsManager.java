@@ -42,6 +42,9 @@ public class MobsManager {
         mobConfiguration.getParts().forEach(part ->
                 mobMachine.addPart(new Part(part), MiniatureMobs.getInstance().getConfigurationManager().getOffsetFromConfiguration(mobConfiguration.getNameID())));
 
+        mobMachine.setDamage(mobConfiguration.getDamage());
+        mobMachine.setHealth(mobConfiguration.getHealth());
+
         mobs.add(mobMachine);
         return mobMachine;
     }
@@ -65,7 +68,7 @@ public class MobsManager {
             mobMachine.getBaseMob().getEntity().remove();
 
         mobMachine.getParts().keySet().forEach(part -> part.getArmorstand().remove());
-        if (mobMachine.getNametag() != null) mobMachine.getNametag().remove();
+        if (mobMachine.getNameTag() != null) mobMachine.getNameTag().remove();
         mobs.remove(mobMachine);
     }
 
@@ -76,7 +79,7 @@ public class MobsManager {
      * @return
      */
     public MobMachine getMachineByEntity(LivingEntity matchMob) {
-        return mobs.stream().filter(mb -> mb.getBaseMob().getEntity().equals(matchMob)).findAny().orElse(null);
+        return mobs.stream().filter(mb -> mb.getBaseMob().getEntity().equals(matchMob)).findFirst().orElse(null);
     }
 
 }

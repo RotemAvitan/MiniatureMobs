@@ -6,10 +6,12 @@ import com.rdev.utils.EntityUtil;
 import com.rdev.utils.MathUtils;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attributable;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -25,14 +27,18 @@ public class MobMachine {
 
     @Getter private String name;
     @Getter private MobsBase baseMob;
-    @Getter private ArmorStand nametag;
+    @Getter private ArmorStand nameTag;
     @Getter private boolean spawned;
     @Getter @Setter private Map<Part, Vector> parts = new HashMap<>();
+    @Getter @Setter private int health;
+    @Getter @Setter private int damage;
     private final double mobHeight = -1.5;
 
     public MobMachine(String name, MobsBase baseMob) {
         this.name = name;
         this.baseMob = baseMob;
+        this.health = 20;
+        this.damage = 3;
     }
 
     /**
@@ -55,7 +61,12 @@ public class MobMachine {
     public LivingEntity spawn(Location spawnLocation) {
         LivingEntity mob = (LivingEntity) getBaseMob().spawnEntity(spawnLocation);
 
-        this.nametag = EntityUtil.spawnCustomArmorStand(mob.getEyeLocation().clone().add(0,-1.75,0), false, this.name);
+        if (mob instanceof Attributable) {
+            ((Attributable) mob).getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(this.health);
+            ((Attributable) mob).getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(this.damage);
+        }
+
+        this.nameTag = EntityUtil.spawnCustomArmorStand(mob.getEyeLocation().clone().add(0,-1.75,0), false, this.name);
 
         parts.keySet().forEach(p -> p.spawnPart(mob.getLocation().clone().add(parts.get(p))));
 
@@ -88,7 +99,7 @@ public class MobMachine {
 
                     loc.subtract(v);
             });
-                nametag.teleport(mob.getEyeLocation().add(0,-1.75,0));
+                nameTag.teleport(mob.getEyeLocation().add(0,-1.75,0));
             }
         }.runTaskTimer(MiniatureMobs.getInstance(), 2, 2);
 
